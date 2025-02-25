@@ -251,10 +251,17 @@ section {
 }
 
 /* Stats Section */
+.stats-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 40px;
+    flex: 1;
 }
 
 .stat-item {
@@ -487,6 +494,27 @@ footer {
         width: 260px;
         height: 540px;
     }
+    
+    .stats-container {
+        flex-direction: column-reverse;
+        margin-top: 60px;
+    }
+    
+    .stats-grid {
+        width: 100%;
+        margin-top: 40px;
+    }
+    
+    .section-title {
+        margin-bottom: 0;
+    }
+    
+    .stats-phone {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -503,7 +531,8 @@ footer {
     }
     
     .section-title {
-        font-size: var(--font-size-xlarge);
+        font-size: 28px;
+        padding: 0 20px;
     }
     
     .hero-buttons, .cta-buttons {
@@ -522,6 +551,11 @@ footer {
     .iphone-frame {
         width: 220px;
         height: 460px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 }
 
