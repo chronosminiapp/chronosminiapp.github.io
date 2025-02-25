@@ -1,0 +1,648 @@
+:root {
+    --black: #000000;
+    --dark-gray: #1a1a1a;
+    --inactive-gray: #666666;
+    --white: #FFFFFF;
+    --green: #18ac91;
+    --green-light: #75d3ba;
+    --blue: #4c9df3;
+    --yellow: #dfb459;
+    --pink: #d561cd;
+    --red: #FF3B30;
+    
+    --font-size-small: 14px;
+    --font-size-regular: 16px;
+    --font-size-medium: 18px;
+    --font-size-large: 24px;
+    --font-size-xlarge: 32px;
+    --font-size-xxlarge: 48px;
+    
+    --border-radius: 12px;
+    --padding-box: 16px;
+    --gap-small: 8px;
+    --gap-medium: 16px;
+    --gap-large: 24px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Bricolage Grotesque', -apple-system, sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Header & Navigation */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-family: 'Fira Code', monospace;
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    color: var(--yellow);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-size: var(--font-size-regular);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--green-light);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    padding: 0 5%;
+    background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.7)), url('images/hero-bg.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-family: 'Fira Code', monospace;
+    font-size: 72px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--yellow);
+}
+
+.hero-subtitle {
+    margin-bottom: 30px;
+}
+
+.hero-subtitle h2 {
+    font-size: var(--font-size-xlarge);
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: var(--font-size-medium);
+    margin-bottom: 40px;
+    color: var(--inactive-gray);
+}
+
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.primary-button {
+    background-color: var(--green);
+    color: var(--black);
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: var(--font-size-medium);
+    transition: transform 0.3s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-3px);
+    background-color: var(--green-light);
+}
+
+.secondary-button {
+    background-color: transparent;
+    color: var(--white);
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    font-size: var(--font-size-medium);
+    border: 1px solid var(--white);
+    transition: transform 0.3s ease;
+}
+
+.secondary-button:hover {
+    transform: translateY(-3px);
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+/* Section Styles */
+section {
+    padding: 100px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: var(--font-size-xxlarge);
+    font-weight: 700;
+    margin-bottom: 60px;
+    text-align: center;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--green);
+    margin: 15px auto 0;
+}
+
+/* Gameplay Section */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.feature {
+    background-color: var(--dark-gray);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+}
+
+.feature h3 {
+    font-size: var(--font-size-medium);
+    margin-bottom: 10px;
+    color: var(--yellow);
+}
+
+.feature p {
+    color: var(--inactive-gray);
+}
+
+/* Rewards Section */
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+}
+
+.reward-item {
+    background-color: var(--dark-gray);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.reward-item h3 {
+    font-size: var(--font-size-medium);
+    margin-bottom: 20px;
+    color: var(--inactive-gray);
+}
+
+.big-number {
+    font-family: 'Fira Code', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--blue);
+}
+
+.reward-item p {
+    color: var(--inactive-gray);
+    margin-bottom: 10px;
+}
+
+/* Stats Section */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Fira Code', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--pink);
+}
+
+.stat-item p {
+    color: var(--inactive-gray);
+}
+
+/* Team Section */
+.team-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+    color: var(--inactive-gray);
+    font-size: var(--font-size-medium);
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.team-category {
+    text-align: center;
+}
+
+.team-category h3 {
+    font-size: var(--font-size-medium);
+    margin-bottom: 20px;
+    color: var(--inactive-gray);
+}
+
+.team-number {
+    font-family: 'Fira Code', monospace;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--green-light);
+}
+
+/* CTA Section */
+.cta {
+    text-align: center;
+    background-color: var(--dark-gray);
+    border-radius: var(--border-radius);
+    padding: 80px 5%;
+    margin: 100px auto;
+}
+
+.cta h2 {
+    font-size: var(--font-size-xlarge);
+    margin-bottom: 40px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--dark-gray);
+    padding: 80px 5% 40px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    font-size: var(--font-size-medium);
+    margin-bottom: 20px;
+    color: var(--yellow);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section li {
+    margin-bottom: 10px;
+}
+
+.footer-section a {
+    color: var(--green-light);
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: var(--green-light);
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 60px;
+    color: var(--inactive-gray);
+    font-size: var(--font-size-small);
+}
+
+/* Hourglass icon styling */
+.hourglass-icon {
+    height: 24px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.hourglass-hero {
+    height: 60px;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+/* iPhone mockup styling */
+.hero-phone, .gameplay-phone, .rewards-phone, .stats-phone {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    perspective: 1000px;
+}
+
+.iphone-mockup {
+    position: relative;
+    transform: rotateY(-10deg) rotateX(5deg);
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.iphone-mockup:hover {
+    transform: rotateY(0deg) rotateX(0deg);
+}
+
+.iphone-frame {
+    position: relative;
+    width: 280px;
+    height: 580px;
+    background-color: #1a1a1a;
+    border-radius: 40px;
+    padding: 10px;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.5),
+        0 0 0 2px rgba(255, 255, 255, 0.05),
+        inset 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.iphone-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.app-screenshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+}
+
+/* Gameplay section styling */
+.gameplay-container, .rewards-container, .stats-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+.gameplay-text {
+    flex: 1;
+    padding-right: 40px;
+}
+
+.gameplay-phone, .rewards-phone, .stats-phone {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.gameplay-description {
+    font-size: 24px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.highlight {
+    color: var(--green-light);
+    font-weight: 600;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .hero, .gameplay-container, .rewards-container, .stats-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-content, .gameplay-text {
+        max-width: 100%;
+        margin-bottom: 40px;
+    }
+    
+    .gameplay-text {
+        padding-right: 0;
+    }
+    
+    .hero-phone, .gameplay-phone, .rewards-phone, .stats-phone {
+        max-width: 100%;
+    }
+    
+    .iphone-frame {
+        width: 260px;
+        height: 540px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero h1 {
+        font-size: 48px;
+    }
+    
+    .hero-subtitle h2 {
+        font-size: var(--font-size-large);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-xlarge);
+    }
+    
+    .hero-buttons, .cta-buttons {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .primary-button, .secondary-button {
+        width: 100%;
+    }
+    
+    .gameplay-description {
+        font-size: 18px;
+    }
+    
+    .iphone-frame {
+        width: 220px;
+        height: 460px;
+    }
+}
+
+/* About Section */
+.about-container {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 60px;
+}
+
+.about-text {
+    flex: 1;
+}
+
+.about-text p {
+    margin-bottom: 20px;
+    font-size: var(--font-size-medium);
+    color: var(--inactive-gray);
+}
+
+.roadmap {
+    flex: 1;
+}
+
+.roadmap h3 {
+    font-size: var(--font-size-large);
+    margin-bottom: 30px;
+    color: var(--yellow);
+}
+
+.roadmap-item {
+    display: flex;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.roadmap-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    width: 2px;
+    height: calc(100% + 10px);
+    background-color: var(--green);
+}
+
+.roadmap-date {
+    min-width: 100px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 600;
+    color: var(--blue);
+}
+
+.roadmap-content {
+    padding-left: 20px;
+}
+
+.roadmap-content h4 {
+    font-size: var(--font-size-medium);
+    margin-bottom: 5px;
+    color: var(--green-light);
+}
+
+.roadmap-content p {
+    color: var(--inactive-gray);
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+    }
+    
+    .roadmap-item {
+        flex-direction: column;
+    }
+    
+    .roadmap-date {
+        margin-bottom: 10px;
+    }
+    
+    .roadmap-item:not(:last-child)::after {
+        display: none;
+    }
+}
+
+/* Animated Hourglass Background */
+.hourglass-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hourglass-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.hourglass-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 70%, var(--black) 100%);
+  z-index: 1;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(180deg); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(90deg); }
+  100% { transform: translateY(0) rotate(180deg); }
+} 
