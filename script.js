@@ -47,14 +47,16 @@ function createHourglassBackground() {
     if (!container) return;
     
     const colors = ['#18ac91', '#75d3ba', '#4c9df3', '#dfb459', '#d561cd'];
-    const count = 40;
+    // Adjust count based on screen size
+    const isMobile = window.innerWidth <= 768;
+    const count = isMobile ? 20 : 40;
     
     // Add color styles to head
     let styleSheet = document.createElement('style');
     colors.forEach((color, index) => {
         styleSheet.textContent += `
             .hourglass-color-${index} {
-                filter: drop-shadow(0 0 8px ${color}) brightness(1.5);
+                filter: drop-shadow(0 0 ${isMobile ? 5 : 8}px ${color}) brightness(1.5);
             }
             .hourglass-color-${index} img {
                 filter: hue-rotate(${index * 60}deg) saturate(2) brightness(1.5);
@@ -68,23 +70,32 @@ function createHourglassBackground() {
         hourglass.className = 'background-hourglass';
         
         // Random position
-        const posX = Math.random() * 100;
+        // Adjust positioning for better mobile distribution
+        const posX = isMobile ? 
+            (Math.random() * 120 - 10) : // Allow slight overflow on mobile
+            Math.random() * 100;
         const posY = Math.random() * 100;
         
-        // Random size between 20px and 60px
-        const size = 30 + Math.random() * 50;
+        // Random size between 30px and 80px, smaller on mobile
+        const size = isMobile ? 
+            (20 + Math.random() * 30) : // 20-50px on mobile
+            (30 + Math.random() * 50);  // 30-80px on desktop
         
         // Random color from our palette
         const colorIndex = Math.floor(Math.random() * colors.length);
         
-        // Random animation duration between 10s and 20s
-        const duration = 10 + Math.random() * 10;
+        // Random animation duration, faster on mobile
+        const duration = isMobile ?
+            (8 + Math.random() * 7) :   // 8-15s on mobile
+            (10 + Math.random() * 10);  // 10-20s on desktop
         
         // Random delay
         const delay = Math.random() * 5;
         
-        // Random opacity between 0.1 and 0.3
-        const opacity = 0.2 + Math.random() * 0.3;
+        // Random opacity, slightly more visible on mobile
+        const opacity = isMobile ?
+            (0.25 + Math.random() * 0.35) :  // 0.25-0.6 on mobile
+            (0.2 + Math.random() * 0.3);     // 0.2-0.5 on desktop
         
         hourglass.style.cssText = `
             position: absolute;
@@ -134,6 +145,20 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 document.addEventListener('DOMContentLoaded', () => {
     fetchStats();
     createHourglassBackground();
+    
+    // Debounce function for resize handler
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            // Clear existing hourglasses
+            const container = document.querySelector('.hourglass-container');
+            if (container) {
+                container.innerHTML = '';
+                createHourglassBackground();
+            }
+        }, 250);  // Wait for resize to finish
+    });
     
     // Add scroll animation for sections
     const observer = new IntersectionObserver((entries) => {

@@ -632,7 +632,11 @@ footer {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at center, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.7) 70%, var(--black) 100%);
+  background: radial-gradient(circle at center, 
+    rgba(0,0,0,0.5) 0%, 
+    rgba(0,0,0,0.7) 70%, 
+    var(--black) 100%
+  );
   z-index: 1;
 }
 
@@ -643,6 +647,25 @@ footer {
 
 @keyframes float {
   0% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(90deg); }
+  50% { transform: translateY(var(--float-distance, -20px)) rotate(90deg); }
   100% { transform: translateY(0) rotate(180deg); }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .hourglass-container::before {
+    background: radial-gradient(circle at center, 
+      rgba(0,0,0,0.6) 0%, 
+      rgba(0,0,0,0.8) 70%, 
+      var(--black) 100%
+    );
+  }
+
+  :root {
+    --float-distance: -15px;  /* Reduce float distance on mobile */
+  }
+
+  .background-hourglass {
+    will-change: transform;  /* Optimize animations */
+  }
 } 
