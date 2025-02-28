@@ -565,100 +565,41 @@ function initAnimations() {
     });
 }
 
-// Initialize mobile menu
+// Mobile menu functionality
 function initMobileMenu() {
-    if (window.innerWidth > 768) return;
-    
-    const header = document.querySelector('.header-content');
+    const mobileMenuButton = document.querySelector('.mobile-menu-button');
     const navLinks = document.querySelector('.nav-links');
     
-    if (!header || !navLinks) return;
+    if (!mobileMenuButton || !navLinks) return;
     
-    // Check if mobile menu button already exists
-    if (document.querySelector('.mobile-menu-button')) return;
-    
-    // Create mobile menu button
-    const mobileMenuButton = document.createElement('button');
-    mobileMenuButton.classList.add('mobile-menu-button');
-    mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-    
-    // Insert button before nav links
-    header.insertBefore(mobileMenuButton, navLinks);
-    
-    // Add toggle functionality
+    // Toggle menu when button is clicked
     mobileMenuButton.addEventListener('click', () => {
         navLinks.classList.toggle('active');
-        mobileMenuButton.classList.toggle('active');
         
-        if (mobileMenuButton.classList.contains('active')) {
+        // Change icon based on menu state
+        if (navLinks.classList.contains('active')) {
             mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
         } else {
             mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
         }
     });
     
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !mobileMenuButton.contains(e.target) && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            mobileMenuButton.classList.remove('active');
-            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    });
-    
-    // Close menu when clicking a link
+    // Close menu when a link is clicked
     const links = navLinks.querySelectorAll('a');
     links.forEach(link => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('active');
-            mobileMenuButton.classList.remove('active');
             mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
         });
     });
     
-    // Add mobile menu styles
-    if (!document.getElementById('mobile-menu-styles')) {
-        const style = document.createElement('style');
-        style.id = 'mobile-menu-styles';
-        style.textContent = `
-            @media (max-width: 768px) {
-                .mobile-menu-button {
-                    display: block;
-                    background: none;
-                    border: none;
-                    color: var(--white);
-                    font-size: 24px;
-                    cursor: pointer;
-                    z-index: 101;
-                }
-                
-                .nav-links {
-                    position: fixed;
-                    top: 80px;
-                    left: 0;
-                    right: 0;
-                    background: var(--dark-gray);
-                    flex-direction: column;
-                    padding: 20px;
-                    gap: 16px;
-                    border-top: 1px solid rgba(255, 255, 255, 0.05);
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                    transform: translateY(-100%);
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: transform 0.3s, opacity 0.3s, visibility 0.3s;
-                    z-index: 100;
-                }
-                
-                .nav-links.active {
-                    transform: translateY(0);
-                    opacity: 1;
-                    visibility: visible;
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navLinks.contains(e.target) && !mobileMenuButton.contains(e.target) && navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
 }
 
 // Initialize contact form
@@ -698,88 +639,35 @@ function initContactForm() {
     });
 }
 
-// Initialize mockup interactions
+// Initialize mockup interactions - DISABLED to keep mockup static
 function initMockupInteractions() {
+    // All mockup animations and interactions are disabled
+    // to ensure the mockup remains completely static
+    
+    // Removing all event listeners and effects for mockups
     const mockups = document.querySelectorAll('.iphone-mockup');
     const mockupContainer = document.querySelector('.mockup-container');
     
-    if (mockups.length > 0 && mockupContainer) {
-        // Add hover effects to iPhone mockups
-        mockups.forEach(mockup => {
-            mockup.addEventListener('mouseenter', () => {
-                mockups.forEach(m => {
-                    if (m !== mockup) {
-                        m.style.opacity = '0.5';
-                        m.style.transform = m.style.transform.replace('scale(1)', 'scale(0.95)');
-                    }
-                });
-                
-                const currentTransform = mockup.style.transform || '';
-                mockup.style.transform = currentTransform + ' scale(1.05) translateY(-10px)';
-                mockup.style.zIndex = '10';
-                
-                const glowEffect = mockup.querySelector('.glow-effect');
-                if (glowEffect) {
-                    glowEffect.style.opacity = '1';
-                }
-            });
-            
-            mockup.addEventListener('mouseleave', () => {
-                mockups.forEach(m => {
-                    m.style.opacity = '1';
-                    m.style.transform = m.style.transform.replace(' scale(0.95)', '').replace(' scale(1.05) translateY(-10px)', '');
-                    m.style.zIndex = '';
-                });
-                
-                const glowEffect = mockup.querySelector('.glow-effect');
-                if (glowEffect) {
-                    glowEffect.style.opacity = '0.6';
-                }
-            });
-        });
-        
-        // Add parallax effect
-        if (window.innerWidth > 768) {
-            mockupContainer.addEventListener('mousemove', (e) => {
-                const { left, top, width, height } = mockupContainer.getBoundingClientRect();
-                const x = (e.clientX - left) / width - 0.5;
-                const y = (e.clientY - top) / height - 0.5;
-                
-                mockups.forEach((mockup, index) => {
-                    const factor = 15 - (index * 5);
-                    const currentTransform = mockup.style.transform || '';
-                    
-                    // Remove any existing translate values
-                    const cleanedTransform = currentTransform
-                        .replace(/translateX\([^)]*\)/g, '')
-                        .replace(/translateY\([^)]*\)/g, '');
-                    
-                    mockup.style.transform = `${cleanedTransform} translateX(${x * factor}px) translateY(${y * factor}px)`;
-                });
-            });
-            
-            mockupContainer.addEventListener('mouseleave', () => {
-                mockups.forEach(mockup => {
-                    const currentTransform = mockup.style.transform || '';
-                    const cleanedTransform = currentTransform
-                        .replace(/translateX\([^)]*\)/g, '')
-                        .replace(/translateY\([^)]*\)/g, '');
-                    
-                    mockup.style.transform = cleanedTransform;
-                });
-            });
-        }
-    }
+    // No hover effects or parallax for mockups
+}
+
+// Adjust mockup size based on screen height - DISABLED
+function adjustMockupSize() {
+    // Function disabled to prevent any size changes to the mockup
+    // The mockup will maintain its original size regardless of screen height
 }
 
 // Initialize everything when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AOS animation library
-    AOS.init({
-        duration: 800,
-        easing: 'ease-out',
-        once: true
-    });
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 800,
+            easing: 'ease-out',
+            once: true,
+            disable: 'mobile' // Disable animations on mobile for better performance
+        });
+    }
     
     // Initialize all components
     initNavigation();
@@ -795,9 +683,13 @@ document.addEventListener('DOMContentLoaded', function() {
         animateValue(element, 0, finalValue, 2000);
     });
     
-    // Handle window resize
-    window.addEventListener('resize', () => {
-        initMobileMenu();
+    // Handle window resize (without mockup adjustments)
+    window.addEventListener('resize', function() {
+        // Add scrolled class to header on small screens
+        const header = document.querySelector('.header');
+        if (window.innerWidth <= 768 && header) {
+            header.classList.add('scrolled');
+        }
     });
 });
 
@@ -815,4 +707,41 @@ document.head.insertAdjacentHTML('beforeend', `
             transform: translateY(0);
         }
     </style>
-`); 
+`);
+
+// Smooth scrolling functionality
+function initSmoothScrolling() {
+    const navLinks = document.querySelectorAll('a[href^="#"]');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                e.preventDefault();
+                
+                // Get header height for offset
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - headerHeight,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+// Add scroll event listener for header
+window.addEventListener('scroll', function() {
+    const header = document.querySelector('.header');
+    if (!header) return;
+    
+    if (window.scrollY > 50 || window.innerWidth <= 768) {
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+}); 
